@@ -8,7 +8,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.content.res.Configuration;
-import android.graphics.Icon;
+import android.graphics.drawable.Icon;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
