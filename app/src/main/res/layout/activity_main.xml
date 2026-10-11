@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:text="GUIDING LIGHT"
+            android:textColor="#fedf77"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+
+        <TextView
+            style="@style/Hint"
+            android:text="@string/blurb"
+            android:textColor="#D9FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView style="@style/Section" android:text="@string/h_messages" />
+        <TextView style="@style/Hint" android:text="@string/hint_messages" />
+        <EditText
+            android:id="@+id/messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/edit_bg"
+            android:gravity="top|start"
+            android:hint="@string/ph_messages"
+            android:inputType="textMultiLine|textCapSentences"
+            android:minLines="6"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#73FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView style="@style/Section" android:text="@string/h_mode" />
+        <RadioGroup
+            android:id="@+id/modeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/radioGuiding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:buttonTint="#fedf77"
+                android:text="@string/mode_guiding"
+                android:textColor="#FFFFFF" />
+            <RadioButton
+                android:id="@+id/radioCurious"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:buttonTint="#fedf77"
+                android:text="@string/mode_curious"
+                android:textColor="#FFFFFF" />
+        </RadioGroup>
+        <TextView android:id="@+id/modeHint" style="@style/Hint" />
+
+        <TextView style="@style/Section" android:text="@string/h_permission" />
+        <TextView android:id="@+id/permStatus" style="@style/Hint" />
+        <Button
+            android:id="@+id/btnGrant"
+            style="@style/Btn"
+            android:text="@string/btn_grant" />
+
+        <TextView style="@style/Section" android:text="@string/h_actions" />
+        <Button
+            android:id="@+id/btnPlay"
+            style="@style/Btn"
+            android:background="@drawable/btn_primary"
+            android:text="@string/btn_play"
+            android:textColor="#230063"
+            android:textStyle="bold" />
+
+        <TextView style="@style/Section" android:text="@string/h_builder" />
+        <TextView style="@style/Hint" android:text="@string/hint_builder" />
+        <TextView
+            android:id="@+id/linkPreview"
+            style="@style/Hint"
+            android:background="@drawable/edit_bg"
+            android:padding="10dp"
+            android:textColor="#D9FFFFFF"
+            android:textIsSelectable="true"
+            android:typeface="monospace"
+            android:textSize="11sp" />
+        <Button
+            android:id="@+id/btnCopyLink"
+            style="@style/Btn"
+            android:text="@string/btn_copy_link" />
+        <Button
+            android:id="@+id/btnCopyAdb"
+            style="@style/Btn"
+            android:text="@string/btn_copy_adb" />
+        <Button
+            android:id="@+id/btnCopyIntent"
+            style="@style/Btn"
+            android:text="@string/btn_copy_intent" />
+
+        <TextView style="@style/Section" android:text="@string/h_intents" />
+        <TextView
+            style="@style/Hint"
+            android:text="@string/intent_help"
+            android:textIsSelectable="true"
+            android:typeface="monospace"
+            android:textSize="11sp" />
+
+        <TextView
+            style="@style/Hint"
+            android:layout_marginTop="22dp"
+            android:text="@string/footer"
+            android:textSize="10sp" />
+    </LinearLayout>
+</ScrollView>

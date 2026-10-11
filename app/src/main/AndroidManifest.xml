@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Draw over other apps (the death screen is a TYPE_APPLICATION_OVERLAY window). -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <!-- The overlay + its sounds live in a short-lived foreground service. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+
+        <!-- Config screen (launcher). Also the target of guidinglight://config. -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="dev.khoichon.guidinglight.action.CONFIG" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Invisible trampoline for startActivity() callers: explicit action intents
+             and the guidinglight:// deep link. It handles the call and finishes at once. -->
+        <activity
+            android:name=".CallActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:noHistory="true"
+            android:taskAffinity=""
+            android:theme="@style/CallTheme">
+            <intent-filter>
+                <action android:name="dev.khoichon.guidinglight.action.SHOW" />
+                <action android:name="dev.khoichon.guidinglight.action.ABORT" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="guidinglight" />
+            </intent-filter>
+        </activity>
+
+        <!-- Same calls, but as broadcasts: no activity launch, works from the background.
+             Must be addressed explicitly (package or component) on Android 8+. -->
+        <receiver
+            android:name=".CallReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.khoichon.guidinglight.action.SHOW" />
+                <action android:name="dev.khoichon.guidinglight.action.ABORT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".OverlayService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback" />
+    </application>
+</manifest>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Guiding Light</string>
+    <string name="notif_channel">Death screen</string>
+    <string name="notif_title">Guiding Light</string>
+    <string name="notif_text">Death screen is showing</string>
+    <string name="notif_stop">Stop</string>
+    <string name="blurb">The DOORS death-message screen. Type the death message below. Separate the messages with a semicolon (;) and each one shows on the screen one at a time, in order, before the screen fades away.</string>
+    <string name="h_messages">Messages</string>
+    <string name="hint_messages">One message per semicolon. Tap anywhere on the screen to advance early; hold for a second to dismiss.</string>
+    <string name="ph_messages">First message;Second message;Third message</string>
+    <string name="h_mode">Mode</string>
+    <string name="mode_guiding">Guiding</string>
+    <string name="mode_curious">Curious</string>
+    <string name="hint_guiding">Pale-cyan text on deep navy, with the guiding ambient hum and end chime.</string>
+    <string name="hint_curious">Pale-gold text on deep amber, the Rooms variant. No end chime.</string>
+    <string name="h_permission">Overlay permission</string>
+    <string name="perm_ok">Granted: the death screen can draw over other apps.</string>
+    <string name="perm_missing">Not granted yet. Without it the death screen can\'t appear over other apps.</string>
+    <string name="btn_grant">Grant overlay permission</string>
+    <string name="h_actions">Actions</string>
+    <string name="btn_play">Call it now</string>
+    <string name="h_builder">Link / intent builder</string>
+    <string name="hint_builder">Built live from the mode and messages above. Paste the link anywhere that can open links, or use the adb / Intent versions from a shell or another app.</string>
+    <string name="btn_copy_link">Copy deep link</string>
+    <string name="btn_copy_adb">Copy adb command</string>
+    <string name="btn_copy_intent">Copy Intent code (Java)</string>
+    <string name="copied">Copied!</string>
+    <string name="h_intents">Calling it from other apps</string>
+    <string name="intent_help">Deep link (also works from a browser or adb):\nguidinglight://show?mode=guiding&amp;message=Hello%3BWorld\n\nExplicit intent:\naction dev.khoichon.guidinglight.action.SHOW\nextras: mode (guiding|curious), message ("a;b;c") or messages (String[])\n\nAdd the same action to a broadcast (with this app\'s package) to skip the activity launch. dev.khoichon.guidinglight.action.ABORT dismisses a running screen. Without extras the saved configuration is used.</string>
+    <string name="footer">DOORS and the Guiding / Curious Light belong to LSPLASH. Fan tribute recreating the Scratch death-screen projects; assets extracted from them.</string>
+    <string name="toast_need_overlay">Grant the overlay permission first, then call Guiding Light again.</string>
+    <string name="toast_cant_start">Couldn\'t start the death screen.</string>
+</resources>

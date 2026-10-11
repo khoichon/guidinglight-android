@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guiding Light: link / intent builder</title>
+<style>
+  :root { color-scheme: dark; }
+  body { margin:0; font:15px/1.5 system-ui,sans-serif; color:#fff; background:linear-gradient(#230063,#30005b) fixed; min-height:100vh; }
+  main { max-width:640px; margin:0 auto; padding:24px 18px 48px; }
+  h1 { margin:0 0 6px; color:#fedf77; letter-spacing:1px; }
+  h2 { margin:24px 0 6px; font-size:16px; color:#fedf77; font-weight:600; }
+  p { color:rgba(255,255,255,.8); margin:4px 0 10px; }
+  textarea, pre { box-sizing:border-box; width:100%; border:0; border-radius:8px; background:rgba(255,255,255,.12); color:#fff; padding:12px; font:13px/1.5 ui-monospace,Menlo,monospace; }
+  textarea { min-height:130px; font-family:inherit; font-size:14px; }
+  pre { white-space:pre-wrap; word-break:break-all; margin:0 0 6px; }
+  label { margin-right:18px; }
+  button { border:0; border-radius:8px; padding:9px 14px; background:rgba(255,255,255,.16); color:#fff; font:inherit; cursor:pointer; }
+  button.primary, a.primary { background:linear-gradient(#fedf77,#f4cf5e); color:#230063; font-weight:600; }
+  a.primary { display:inline-block; border-radius:8px; padding:9px 14px; text-decoration:none; margin-left:6px; }
+  .row { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin-bottom:4px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>GUIDING LIGHT</h1>
+  <p>Build a link or intent for the Android app. Separate messages with a semicolon.</p>
+
+  <h2>Mode</h2>
+  <label><input type="radio" name="mode" value="guiding" checked> Guiding</label>
+  <label><input type="radio" name="mode" value="curious"> Curious</label>
+
+  <h2>Messages</h2>
+  <textarea id="msg" spellcheck="false">Hello, fellow scratcher!;Have fun!!!</textarea>
+
+  <h2>Deep link</h2>
+  <pre id="link"></pre>
+  <div class="row"><button data-copy="link">Copy</button><a id="open" class="primary" href="#">Open on this device</a></div>
+
+  <h2>adb</h2>
+  <pre id="adb"></pre>
+  <button data-copy="adb">Copy</button>
+
+  <h2>Intent (Java)</h2>
+  <pre id="java"></pre>
+  <button data-copy="java">Copy</button>
+</main>
+<script>
+const ACTION = 'dev.khoichon.guidinglight.action.SHOW', PKG = 'dev.khoichon.guidinglight';
+const $ = id => document.getElementById(id);
+const parse = t => t.replace(/\r?\n/g, ';').split(';').map(s => s.trim().slice(0, 500)).filter(Boolean).slice(0, 16);
+
+function build() {
+  const mode = document.querySelector('input[name=mode]:checked').value;
+  const list = parse($('msg').value), msg = list.join(';');
+  const link = `guidinglight://show?mode=${mode}&message=${encodeURIComponent(msg)}`;
+  const inner = `am start -a ${ACTION} --es mode ${mode} --es message '${msg.replace(/'/g, "'\\''")}'`;
+  const adb = 'adb shell "' + inner.replace(/([\\"$`])/g, '\\$1') + '"';
+  const q = s => '"' + s.replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+  const java = `Intent i = new Intent("${ACTION}")\n        .setPackage("${PKG}")\n        .putExtra("mode", "${mode}")\n        .putExtra("messages", new String[]{${list.map(q).join(', ')}});\nstartActivity(i); // or sendBroadcast(i)`;
+  $('link').textContent = link; $('adb').textContent = adb; $('java').textContent = java;
+  $('open').href = link;
+}
+document.querySelectorAll('input[name=mode]').forEach(r => r.addEventListener('change', build));
+$('msg').addEventListener('input', build);
+document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => {
+  await navigator.clipboard.writeText($(b.dataset.copy).textContent);
+  const t = b.textContent; b.textContent = 'Copied!'; setTimeout(() => b.textContent = t, 1000);
+}));
+build();
+</script>
+</body>
+</html>
