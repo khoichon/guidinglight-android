@@ -22,7 +22,7 @@ jobs:
           java-version: "17"
 
       # Installs the Android SDK and accepts its licenses, so AGP can fetch platform 35.
-      - uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v4
 
       # The repo has no Gradle wrapper, so use the Gradle AGP 8.7 wants.
       - uses: gradle/actions/setup-gradle@v4
